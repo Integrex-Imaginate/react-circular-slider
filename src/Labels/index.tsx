@@ -40,6 +40,12 @@ const Labels: React.FC<LabelsProps> = ({
 			userSelect: 'none',
 			zIndex: 1,
 		},
+		codeTop: {
+			verticalAlign: 'text-top',
+		},
+		codeBottom: {
+			verticalAlign: 'text-bottom',
+		},
 		value: {
 			fontSize: valueFontSize,
 			position: 'relative',
@@ -68,7 +74,7 @@ const Labels: React.FC<LabelsProps> = ({
 		<div style={{ ...styles.labels, ...(hideLabelValue ? styles.hide : {}) }}>
 			{!labelBottom && <div style={{ fontSize: labelFontSize }}>{label}</div>}
 			<div style={{ ...styles.value, ...(!labelBottom ? styles.bottomMargin : {}) }}>
-				<code>
+				<code style={labelBottom ? styles.codeBottom : styles.codeTop}>
 					<span style={styles.prepended}>{prependToValue}</span>
 					{value}
 					<span style={styles.appended}>{appendToValue}</span>
