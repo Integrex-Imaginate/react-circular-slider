@@ -110,6 +110,8 @@ const CircularSlider = forwardRef<CircularSliderHandle, CircularSliderProps>((pr
         children,
         onChange = () => {},
         isDragging = () => {},
+        activeStartAngle = 0,
+        activeEndAngle= 360
     } = props;
 
     const resizeObserverRef = useRef<ResizeObserver | null>(null);
@@ -192,6 +194,19 @@ const CircularSlider = forwardRef<CircularSliderHandle, CircularSliderProps>((pr
 
         // Convert radians to degrees (0-360)
         let degrees = ((offsetRadians > 0 ? offsetRadians : (2 * Math.PI) + offsetRadians) * spreadDegrees) / (2 * Math.PI);
+
+        if (activeStartAngle !== 0 || activeEndAngle !== 360) {
+    const normalizedDegrees = (degrees + 360) % 360;
+
+    const inArc =
+        activeStartAngle < activeEndAngle
+            ? normalizedDegrees >= activeStartAngle && normalizedDegrees <= activeEndAngle
+            : normalizedDegrees >= activeStartAngle || normalizedDegrees <= activeEndAngle;
+
+    if (!inArc) {
+        return; // ignore updates outside active arc
+    }
+}
 
         // Apply direction
         degrees = getSliderRotation(direction) === -1 ? spreadDegrees - degrees : degrees;
