@@ -53,6 +53,8 @@ export interface CircularSliderProps {
     onChange?: (value: string | number) => void;
     isDragging?: (dragging: boolean) => void;
     children?: React.ReactNode;
+    activeStartAngle?: number; // default 0
+    activeEndAngle?: number;   // default 360
 }
 
 // Export the handle type for TypeScript users
